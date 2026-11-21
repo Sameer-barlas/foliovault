@@ -1,0 +1,73 @@
+name: Build and Release FolioVault APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        run: |
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "platforms;android-36" || true
+
+      - name: Setup Gradle 9.3.1
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '9.3.1'
+
+      - name: Restore Keystore and Google Services
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > my-upload-key.jks
+          echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
+
+      - name: Build Signed Release APK
+        env:
+          KEYSTORE_PATH: ${{ github.workspace }}/my-upload-key.jks
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          API_BASE_URL: https://foliovault-backend.vercel.app
+          GOOGLE_WEB_CLIENT_ID: 708209592139-22mb7depd5hl11lhorgn44l1avbfkiia.apps.googleusercontent.com
+          FIRESTORE_DATABASE_ID: (default)
+        run: |
+          gradle :app:assembleRelease --stacktrace
+
+      - name: Prepare APK Asset
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk FolioVault-release.apk
+          ls -lh FolioVault-release.apk
+
+      - name: Upload APK to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME:-v1.0.0}"
+          if [[ "$TAG" == "master" || "$TAG" == "main" || -z "$TAG" ]]; then
+            TAG="v1.0.0"
+          fi
+          # Delete existing tag/release if re-running
+          gh release delete "$TAG" -y || true
+          git push --delete origin "$TAG" || true
+          gh release create "$TAG" FolioVault-release.apk \
+            --title "FolioVault $TAG" \
+            --notes "FolioVault Secure Single-Device Book Reader signed release APK." \
+            --latest
