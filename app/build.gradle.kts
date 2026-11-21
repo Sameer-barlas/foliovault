@@ -35,6 +35,7 @@ android {
     buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleWebClientId\"")
     buildConfigField("String", "FIRESTORE_DATABASE_ID", "\"$firestoreDatabaseId\"")
     buildConfigField("String", "SUPER_ADMIN_EMAIL", "\"muhamad517uet@gmail.com\"")
+    buildConfigField("String", "SUPER_ADMIN_EMAILS", "\"muhamad517uet@gmail.com,sayazsultan@gmail.com\"")
   }
 
   sourceSets {

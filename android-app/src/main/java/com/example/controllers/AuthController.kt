@@ -141,7 +141,7 @@ class AuthController(
             if (!FirestoreConfig.isFirebaseConfigured(appContext)) {
                 _uiState.value = AuthUiState.Welcome(
                     loading = false,
-                    errorMessage = "Firebase is not configured yet. Add app/google-services.json per README.md.",
+                    errorMessage = "Authentication service is not configured yet. Please contact your administrator.",
                     configMissing = true,
                 )
                 return@launch

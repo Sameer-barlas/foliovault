@@ -7,5 +7,5 @@ const env = loadEnv();
 const app = createApp({ env });
 
 app.listen(env.port, () => {
-  console.log(`FolioVault backend listening on port ${env.port}`);
+  console.log(`Redoo backend listening on port ${env.port}`);
 });

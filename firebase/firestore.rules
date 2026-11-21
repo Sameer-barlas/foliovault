@@ -3,8 +3,8 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    function superAdminEmail() {
-      return 'muhamad517uet@gmail.com';
+    function isSuperAdmin(email) {
+      return email == 'muhamad517uet@gmail.com' || email == 'sayazsultan@gmail.com';
     }
 
     function isSignedIn() {
@@ -144,8 +144,8 @@ service cloud.firestore {
         && request.resource.data.displayName.size() <= 120
         && isValidTimestamp(request.resource.data.updatedAt);
 
-      // Super-admin document cannot be deleted by any client.
-      allow delete: if isAdmin() && email != superAdminEmail();
+      // Super-admin documents cannot be deleted by any client.
+      allow delete: if isAdmin() && !isSuperAdmin(email);
     }
 
     // access/{email__bookId}

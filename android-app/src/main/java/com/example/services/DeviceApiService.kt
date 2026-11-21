@@ -170,7 +170,7 @@ class DeviceApiService(
             }
         } catch (e: Exception) {
             BindDeviceOutcome.Failure(
-                "Could not reach FolioVault server. Check your connection and try again."
+                "Could not reach Redoo server. Check your connection and try again."
             )
         }
     }

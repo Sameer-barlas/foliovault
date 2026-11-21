@@ -1,5 +1,5 @@
 {
-  "name": "FolioVault",
+  "name": "Redoo",
   "description": "Secure single-device Android image-book reader and admin portal built on Firebase Spark and Express.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

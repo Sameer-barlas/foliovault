@@ -7,6 +7,7 @@ const { createGoogleAuthService } = require("../src/services/googleAuthService")
 
 const WEB_CLIENT_ID = "test-web-client.apps.googleusercontent.com";
 const SUPER_ADMIN_EMAIL = "muhamad517uet@gmail.com";
+const SUPER_ADMIN_EMAIL_2 = "sayazsultan@gmail.com";
 
 function createInMemoryFirestore() {
   const store = new Map();
@@ -322,10 +323,18 @@ describe("FolioVault Express Backend", () => {
           sub: "sub_super",
           name: "Muhamad",
         },
+        "super_admin_2_token_1234567890": {
+          aud: WEB_CLIENT_ID,
+          email: SUPER_ADMIN_EMAIL_2,
+          email_verified: true,
+          sub: "sub_sayaz",
+          name: "Sayaz",
+        },
       },
     });
 
     await h.withServer(async (baseUrl) => {
+      // First super-admin
       const res = await postJson(baseUrl, "/api/bind-device", {
         idToken: "super_admin_token_123456789012",
         deviceId: "dev-admin-01",
@@ -343,6 +352,25 @@ describe("FolioVault Express Backend", () => {
       assert.equal(saved.role, "admin");
       assert.equal(saved.boundDeviceId, "dev-admin-01");
       assert.equal(saved.sessionVersion, 1);
+
+      // Second super-admin
+      const res2 = await postJson(baseUrl, "/api/bind-device", {
+        idToken: "super_admin_2_token_1234567890",
+        deviceId: "dev-admin-02",
+        deviceLabel: "Pixel 9 Pro XL",
+      });
+      assert.equal(res2.status, 200);
+      assert.equal(res2.json.role, "admin");
+      assert.deepEqual(h.mintedTokens[1].claims, {
+        deviceId: "dev-admin-02",
+        userEmail: SUPER_ADMIN_EMAIL_2,
+        role: "admin",
+      });
+
+      const saved2 = (await h.db.collection("authorized_users").doc(SUPER_ADMIN_EMAIL_2).get()).data();
+      assert.equal(saved2.role, "admin");
+      assert.equal(saved2.boundDeviceId, "dev-admin-02");
+      assert.equal(saved2.sessionVersion, 1);
     });
   });
 
@@ -411,6 +439,14 @@ describe("FolioVault Express Backend", () => {
         { Authorization: "Bearer second_admin_token" }
       );
       assert.equal(rProtectSuper.status, 403);
+
+      const rProtectSuper2 = await postJson(
+        baseUrl,
+        "/api/reset-device",
+        { targetEmail: SUPER_ADMIN_EMAIL_2, reason: "attempt 2" },
+        { Authorization: "Bearer second_admin_token" }
+      );
+      assert.equal(rProtectSuper2.status, 403);
 
       // Valid reset #1 succeeds, clears binding, increments sessionVersion, writes audit log
       const r1 = await postJson(

@@ -2,7 +2,7 @@
   "name": "foliovault-backend",
   "version": "1.0.0",
   "private": true,
-  "description": "FolioVault Express MVC backend for single-device binding and rate-limited admin resets (Firebase Spark Edition).",
+  "description": "Redoo Express MVC backend for single-device binding and rate-limited admin resets (Firebase Spark Edition).",
   "main": "server.js",
   "engines": {
     "node": ">=18.0.0"

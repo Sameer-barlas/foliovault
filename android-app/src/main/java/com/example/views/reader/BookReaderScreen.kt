@@ -414,7 +414,7 @@ private fun GmailWatermarkOverlay(
     }
 
     Canvas(modifier = modifier) {
-        val label = email.ifBlank { "FolioVault Protected" }
+        val label = email.ifBlank { "Redoo Protected" }
         val stepY = (size.height / 3.2f).coerceAtLeast(220f)
         val canvas = drawContext.canvas.nativeCanvas
         canvas.save()

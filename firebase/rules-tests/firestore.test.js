@@ -14,6 +14,7 @@ const [emulatorHost, emulatorPortStr] = (
 const emulatorPort = parseInt(emulatorPortStr, 10);
 
 const SUPER_ADMIN_EMAIL = "muhamad517uet@gmail.com";
+const SUPER_ADMIN_EMAIL_2 = "sayazsultan@gmail.com";
 const ADMIN_DEVICE_ID = "dev-admin-001";
 const READER_A_EMAIL = "alice@example.com";
 const READER_A_DEVICE_ID = "dev-alice-001";
@@ -42,11 +43,24 @@ async function seedFixture() {
 
     await db.collection("authorized_users").doc(SUPER_ADMIN_EMAIL).set({
       email: SUPER_ADMIN_EMAIL,
-      displayName: "Super Admin",
+      displayName: "Super Admin 1",
       role: "admin",
       boundDeviceId: ADMIN_DEVICE_ID,
       boundDeviceLabel: "Pixel 9 Pro",
       boundUid: "g_admin_sub",
+      boundAt: now,
+      sessionVersion: 1,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    await db.collection("authorized_users").doc(SUPER_ADMIN_EMAIL_2).set({
+      email: SUPER_ADMIN_EMAIL_2,
+      displayName: "Super Admin 2",
+      role: "admin",
+      boundDeviceId: "dev-admin-002",
+      boundDeviceLabel: "Pixel 9 Pro XL",
+      boundUid: "g_admin_sub_2",
       boundAt: now,
       sessionVersion: 1,
       createdAt: now,
@@ -387,7 +401,7 @@ test("7. Page over 300 KB rejected; valid page <= 300 KB accepted", async () => 
   );
 });
 
-test("8. Super-admin doc cannot be deleted by any client; reader doc can be deleted by admin", async () => {
+test("8. Super-admin docs cannot be deleted by any client; reader doc can be deleted by admin", async () => {
   const adminDb = testEnv
     .authenticatedContext("g_admin_sub", {
       userEmail: SUPER_ADMIN_EMAIL,
@@ -397,6 +411,7 @@ test("8. Super-admin doc cannot be deleted by any client; reader doc can be dele
     .firestore();
 
   await assertFails(adminDb.collection("authorized_users").doc(SUPER_ADMIN_EMAIL).delete());
+  await assertFails(adminDb.collection("authorized_users").doc(SUPER_ADMIN_EMAIL_2).delete());
   await assertSucceeds(adminDb.collection("authorized_users").doc(READER_B_EMAIL).delete());
 });
 

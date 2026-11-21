@@ -33,6 +33,7 @@ function createApp(overrides = {}) {
       googleAuthService,
       rateLimitService,
       superAdminEmail: env.superAdminEmail,
+      superAdminEmails: env.superAdminEmails,
       serverTimestamp:
         overrides.serverTimestamp ||
         (() =>

@@ -66,7 +66,19 @@ fun AdminUsersTab(
     var userForDelete by remember { mutableStateOf<AuthorizedUser?>(null) }
 
     val dateFormatter = remember { DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT) }
-    val superAdminEmail = BuildConfig.SUPER_ADMIN_EMAIL.lowercase()
+    val superAdminEmails = remember {
+        val set = mutableSetOf("muhamad517uet@gmail.com", "sayazsultan@gmail.com")
+        BuildConfig.SUPER_ADMIN_EMAIL.lowercase().takeIf { it.isNotBlank() }?.let { set.add(it) }
+        try {
+            val field = BuildConfig::class.java.getField("SUPER_ADMIN_EMAILS")
+            val raw = field.get(null) as? String
+            raw?.split(",")?.forEach { email ->
+                val clean = email.trim().lowercase()
+                if (clean.isNotEmpty()) set.add(clean)
+            }
+        } catch (_: Exception) {}
+        set
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -75,7 +87,7 @@ fun AdminUsersTab(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             items(items = state.users, key = { it.email }) { user ->
-                val isSuperAdmin = user.email.equals(superAdminEmail, ignoreCase = true)
+                val isSuperAdmin = superAdminEmails.contains(user.email.lowercase())
                 val grantedBookIds = state.accessGrants
                     .filter { it.email.equals(user.email, ignoreCase = true) }
                     .map { it.bookId }

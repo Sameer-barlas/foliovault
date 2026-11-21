@@ -8,11 +8,23 @@ function createDeviceService({
   googleAuthService,
   rateLimitService,
   superAdminEmail,
+  superAdminEmails,
   serverTimestamp = () => new Date(),
 }) {
-  const normalizedSuperAdmin = String(superAdminEmail || "muhamad517uet@gmail.com")
-    .trim()
-    .toLowerCase();
+  const rawList = Array.isArray(superAdminEmails)
+    ? superAdminEmails
+    : String(superAdminEmail || "")
+        .split(",")
+        .map((e) => e.trim().toLowerCase())
+        .filter(Boolean);
+
+  const adminSet = new Set(rawList);
+  adminSet.add("muhamad517uet@gmail.com");
+  adminSet.add("sayazsultan@gmail.com");
+
+  function isSuperAdmin(email) {
+    return adminSet.has(String(email || "").trim().toLowerCase());
+  }
 
   async function bindDevice({ idToken, deviceId, deviceLabel }) {
     if (typeof deviceId !== "string" || deviceId.trim().length < 4 || deviceId.trim().length > 160) {
@@ -34,7 +46,7 @@ function createDeviceService({
       const now = serverTimestamp();
 
       if (!snap.exists) {
-        if (email === normalizedSuperAdmin) {
+        if (isSuperAdmin(email)) {
           tx.set(userRef, {
             email,
             displayName: googleUser.displayName || "Super Admin",
@@ -52,7 +64,7 @@ function createDeviceService({
         throw new ApiError(
           403,
           "NOT_AUTHORIZED",
-          "This Google account is not authorized for FolioVault.",
+          "This Google account is not authorized for Redoo.",
           { email }
         );
       }
@@ -136,9 +148,9 @@ function createDeviceService({
       throw new ApiError(403, "FORBIDDEN", "Admin role and bound device match required.");
     }
 
-    // Only the super-admin may reset the super-admin
-    if (cleanTargetEmail === normalizedSuperAdmin && callerEmail !== normalizedSuperAdmin) {
-      throw new ApiError(403, "FORBIDDEN", "Only the super-admin may reset the super-admin device.");
+    // Only a super-admin may reset a super-admin
+    if (isSuperAdmin(cleanTargetEmail) && !isSuperAdmin(callerEmail)) {
+      throw new ApiError(403, "FORBIDDEN", "Only a super-admin may reset a super-admin device.");
     }
 
     // Check rate limits (3/target/24h, 20/admin/hr) before mutating target

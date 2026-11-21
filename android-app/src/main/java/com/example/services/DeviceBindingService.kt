@@ -67,7 +67,7 @@ class DeviceBindingService(
         val webClientId = BuildConfig.GOOGLE_WEB_CLIENT_ID.trim()
         if (webClientId.isEmpty()) {
             return GoogleSignInResult.Error(
-                "GOOGLE_WEB_CLIENT_ID is not configured. See README.md to set it before signing in."
+                "Sign-in service is not configured. Please contact your administrator."
             )
         }
 

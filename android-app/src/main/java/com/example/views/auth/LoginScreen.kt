@@ -146,20 +146,20 @@ fun LoginScreen(
                     ) {
                         PillarRow(
                             icon = Icons.Filled.PhonelinkLock,
-                            title = "Single-Device Binding",
-                            detail = "Verified server-side per Gmail account.",
+                            title = "Single-Device Protection",
+                            detail = "Securely bound to your verified personal smartphone.",
                         )
                         HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                         PillarRow(
                             icon = Icons.Filled.Memory,
-                            title = "Memory-Only Reading",
-                            detail = "Zero disk caches, zero download links.",
+                            title = "Protected Reading",
+                            detail = "Seamless, high-definition reading with zero data leaks.",
                         )
                         HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                         PillarRow(
                             icon = Icons.Filled.VerifiedUser,
-                            title = "Protected Editions",
-                            detail = "Screen capture blocked with personal watermark.",
+                            title = "Screen Privacy Safeguards",
+                            detail = "Enhanced content protection with personalized watermarking.",
                         )
                     }
                 }

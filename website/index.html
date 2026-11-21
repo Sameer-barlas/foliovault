@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FolioVault — Private Single-Device Android Book Reader</title>
+    <title>Redoo — Private &amp; Secure Digital Book Reader</title>
     <meta
       name="description"
-      content="Distribute private visual books and study materials locked to one physical Android phone per authorized Gmail."
+      content="Redoo is a private digital book reading platform for Android. Read exclusive editions and private study materials bound securely to your verified personal device."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -20,22 +20,34 @@
     <header>
       <div class="container nav">
         <a class="brand" href="#">
-          <span class="brand-mark" aria-hidden="true">F</span>
-          <span class="brand-name">FolioVault</span>
+          <span class="brand-mark" aria-hidden="true">R</span>
+          <span class="brand-name">Redoo</span>
         </a>
-        <span class="version-pill" id="version-badge">v1.0.0 · Android APK</span>
+
+        <ul class="nav-links">
+          <li><a class="nav-link" href="#features">Features</a></li>
+          <li><a class="nav-link" href="#experience">Reading Experience</a></li>
+          <li><a class="nav-link" href="#how-it-works">How It Works</a></li>
+          <li><a class="nav-link" href="#faq">FAQ</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <span class="version-pill" id="version-badge">v1.0.0 · Android App</span>
+          <a class="btn-nav" href="#install-guide">Get App</a>
+        </div>
       </div>
     </header>
 
     <main class="container">
+      <!-- Hero Section -->
       <section class="hero" style="border-top: none">
         <div>
-          <p class="eyebrow">Private Digital Editions · Single-Device Lock</p>
-          <h1>Read private editions without file leaks.</h1>
+          <span class="eyebrow">Private Digital Editions · Single-Device Protection</span>
+          <h1>The private reading platform for exclusive books &amp; editions.</h1>
           <p class="lead">
-            FolioVault delivers image-only books exclusively to authorized Gmail readers, locked
-            server-side to one physical Android phone with zero disk caching and zero public
-            download links.
+            Redoo is a dedicated digital book reading platform designed for exclusive publications,
+            study materials, and private editions. Enjoy a distraction-free, high-definition reading
+            experience locked securely to your verified personal Android phone.
           </p>
           <div class="cta-row">
             <a
@@ -44,112 +56,320 @@
               href="#install-guide"
               rel="noopener noreferrer"
             >
-              Download APK for Android
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+              </svg>
+              <span>Download Redoo for Android</span>
             </a>
-            <a class="btn-secondary" href="#install-guide">Install Instructions</a>
+            <a class="btn-secondary" href="#features">Explore Features</a>
           </div>
-          <p class="meta-note" id="release-meta">Android 7.0 (API 24)+ · Signed Release APK</p>
-        </div>
 
-        <aside class="preview-card" aria-label="Protected reader preview">
-          <div class="preview-page">
-            <div class="preview-watermark">reader@example.com · FOLIOVAULT</div>
-            <p class="preview-folio">FOLIO 04 · PROTECTED EDITION</p>
-            <p class="preview-title">Atlas of Classical Mechanics</p>
-            <div class="preview-lines">
-              Memory-only WebP plates streamed in 12-page batches with pinch-to-zoom, screen
-              capture blocking, and live revocation guard.
+          <div class="trust-badges">
+            <div class="trust-badge-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span id="release-meta">Android 7.0+ · Official Release</span>
+            </div>
+            <div class="trust-badge-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>One-Tap Google Sign-In</span>
+            </div>
+            <div class="trust-badge-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>Zero Distractions</span>
             </div>
           </div>
-          <span class="preview-pill">04 / 18 · FLAG_SECURE</span>
+        </div>
+
+        <aside class="preview-card" aria-label="Redoo Reader Preview">
+          <div class="reader-device-top">
+            <div class="device-status">
+              <span class="status-dot"></span>
+              <span>VERIFIED DEVICE</span>
+            </div>
+            <div class="reader-controls">
+              <span class="control-pill">DARK MODE</span>
+              <span class="control-pill">PINCH ZOOM</span>
+            </div>
+          </div>
+
+          <div class="preview-page">
+            <div class="preview-watermark">reader@example.com · REDOO</div>
+            <div>
+              <p class="preview-folio">CHAPTER IV · SPECIAL EDITION</p>
+              <h2 class="preview-title">Principles of Clear Thinking &amp; Strategy</h2>
+            </div>
+            <p class="preview-excerpt">
+              &ldquo;A great book should leave you with many experiences, and slightly exhausted at the end. You live several lives while reading.&rdquo;
+            </p>
+            <div class="preview-footer">
+              <span>SECTION 2 · ANALYSIS</span>
+              <span>PAGE 42 OF 180</span>
+            </div>
+          </div>
+
+          <div class="preview-bottom-bar">
+            <span class="reader-badge">PROTECTED READING</span>
+            <span class="zoom-indicator">100% Crisp Scaling</span>
+          </div>
         </aside>
       </section>
 
-      <section id="security">
-        <h2>Four Security Pillars</h2>
-        <p class="section-sub">
-          Built for authors, coaching institutes, and publishers distributing paid study books.
-        </p>
-        <div class="pillars">
-          <article class="pillar-card">
-            <span class="pillar-tag">01 · SERVER-ENFORCED</span>
-            <h3>One Phone per Gmail</h3>
+      <!-- Features Section -->
+      <section id="features">
+        <div class="section-head">
+          <span class="eyebrow">Customer Highlights</span>
+          <h2>Crafted for Readers. Engineered for Privacy.</h2>
+          <p class="section-sub">
+            Redoo combines the elegance of high-end editorial typography with advanced digital safeguards,
+            making sure your reading journey is private, smooth, and authentic.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+              </svg>
+            </div>
+            <h3>Single-Device Binding</h3>
             <p>
-              Your first Google sign-in binds your hardware device on the server and mints a
-              device-scoped session token verified on every Firestore read.
+              Your library is bound exclusively to your personal smartphone. Your books remain accessible
+              only on your authorized device, preventing unauthorized sharing and account duplication.
             </p>
           </article>
-          <article class="pillar-card">
-            <span class="pillar-tag">02 · ZERO DISK CACHE</span>
-            <h3>Memory-Only Rendering</h3>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.41.21.75-.19.75-.5V6c-.6-.45-1.25-.75-2-1zm-1 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+              </svg>
+            </div>
+            <h3>High-Definition Reading</h3>
             <p>
-              Pages live strictly inside a temporary RAM cache and are wiped immediately when you
-              exit a book, sign out, or have access revoked.
+              Every diagram, plate, and passage is presented in razor-sharp visual detail. Pinch-to-zoom
+              fluidly on complex charts and illustrations with smooth, responsive navigation.
             </p>
           </article>
-          <article class="pillar-card">
-            <span class="pillar-tag">03 · SCREEN DEFENSE</span>
-            <h3>Capture Block &amp; Watermark</h3>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+              </svg>
+            </div>
+            <h3>Anti-Leak Safeguards</h3>
             <p>
-              Android <code>FLAG_SECURE</code> blocks screenshots and screen recordings while a
-              translucent personal Gmail watermark discourages external camera photos.
+              Built-in display protections guard confidential study guides and exclusive editions
+              against unauthorized capture, paired with subtle dynamic reader verification.
             </p>
           </article>
-          <article class="pillar-card">
-            <span class="pillar-tag">04 · ZERO EMAIL LEAKAGE</span>
-            <h3>Private Grants &amp; Instant Revoke</h3>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+              </svg>
+            </div>
+            <h3>Curated Personal Library</h3>
             <p>
-              Readers see only books explicitly assigned to their account. Admin device resets are
-              rate-limited, audited, and take effect immediately.
+              No tedious manual transfers. Books and editions granted to your registered account
+              appear immediately in your personal bookshelf ready to open with a single tap.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+              </svg>
+            </div>
+            <h3>Distraction-Free Comfort</h3>
+            <p>
+              Zero advertisements, elegant editorial layouts, and ambient viewing modes designed
+              specifically to avoid visual fatigue during prolonged reading and study sessions.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+              </svg>
+            </div>
+            <h3>One-Tap Google Access</h3>
+            <p>
+              Instant, seamless authentication using your registered Google account. No complicated
+              passwords to remember, no tedious verification emails, just tap and read.
             </p>
           </article>
         </div>
       </section>
 
-      <section id="install-guide">
-        <h2>How to Install the APK</h2>
-        <p class="section-sub">
-          Because FolioVault is distributed directly rather than through Google Play, Android asks
-          you to confirm browser installation once.
-        </p>
-        <div class="steps">
-          <article class="step-card">
-            <h3>Download the signed APK</h3>
-            <p>Tap <strong>Download APK for Android</strong> above to fetch the latest release from GitHub Releases.</p>
-          </article>
-          <article class="step-card">
-            <h3>Allow installs from this source</h3>
+      <!-- Reading Experience Showcase -->
+      <section id="experience">
+        <div class="experience-split">
+          <div class="experience-content">
+            <span class="eyebrow">The Reading Experience</span>
+            <h3>An editorial atmosphere designed for deep immersion.</h3>
             <p>
-              Open the downloaded file. When Android prompts, tap <strong>Settings</strong> and
-              enable <strong>Allow from this source</strong> for your browser or Files app.
+              Whether studying complex scientific texts, analyzing architectural portfolios, or immersing
+              yourself in private monographs, Redoo ensures complete focus and unmatched clarity.
+            </p>
+
+            <ul class="experience-list">
+              <li class="experience-list-item">
+                <span class="list-bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                </span>
+                <span><strong>Crisp Visual Clarity:</strong> Optimized for high-resolution graphics, mathematical formulas, and annotated manuscripts.</span>
+              </li>
+              <li class="experience-list-item">
+                <span class="list-bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                </span>
+                <span><strong>Natural Pinch-to-Zoom:</strong> Inspect intricate details and margin notes smoothly with responsive gesture controls.</span>
+              </li>
+              <li class="experience-list-item">
+                <span class="list-bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                </span>
+                <span><strong>Instant Page Resume:</strong> Your reading position is seamlessly maintained whenever you re-open a book.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-box">
+            <span class="eyebrow">Dedicated Platform</span>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 8px;">
+              Designed specifically for Android Readers
+            </h3>
+            <p style="font-size: 14px; color: var(--muted); line-height: 1.6;">
+              Engineered from the ground up to take advantage of modern Android hardware, providing
+              buttery-smooth scrolling, instant page rendering, and maximum battery efficiency.
+            </p>
+
+            <div class="experience-stat-row">
+              <div class="stat-item">
+                <h4>100%</h4>
+                <p>Distraction-Free (Zero Ads)</p>
+              </div>
+              <div class="stat-item">
+                <h4>1-Device</h4>
+                <p>Exclusive Account Binding</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section id="how-it-works">
+        <div class="section-head">
+          <span class="eyebrow">Simple Setup</span>
+          <h2>How to Get Started with Redoo</h2>
+          <p class="section-sub">
+            Begin reading your assigned editions in less than a minute with these simple steps.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <h3>Download Redoo</h3>
+            <p>
+              Tap the <strong>Download Redoo for Android</strong> button to get the verified APK
+              file directly onto your smartphone.
             </p>
           </article>
+
           <article class="step-card">
-            <h3>Sign in with your authorized Gmail</h3>
+            <h3>Sign in with Google</h3>
             <p>
-              Launch FolioVault and tap <strong>Continue with Google</strong>. Your phone binds
-              automatically on first sign-in.
+              Launch the Redoo app and tap <strong>Continue with Google</strong> using your authorized
+              Gmail account. Your device pairs automatically.
+            </p>
+          </article>
+
+          <article class="step-card">
+            <h3>Open &amp; Read</h3>
+            <p>
+              Your personal library shelf unlocks immediately with all your assigned books ready for
+              an effortless reading experience.
             </p>
           </article>
         </div>
-        <div class="notice">
-          <strong>Play Protect notice:</strong> Direct APK installs may display a standard Google
-          Play Protect scan prompt. Tap <em>More details &rarr; Install anyway</em> only when
-          downloading from this official page. Need a device reset after upgrading or factory
-          resetting your phone? Contact your administrator.
+
+        <div class="notice-box" id="install-guide">
+          <strong>Installation Tip for Android:</strong> When opening the downloaded APK file for the first time,
+          Android may prompt you with a standard confirmation (*"Allow installs from this source"*). Simply tap
+          <strong>Settings</strong> and toggle allow. If a standard Google Play Protect notice appears, tap
+          <em>More details &rarr; Install anyway</em>.
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq">
+        <div class="section-head">
+          <span class="eyebrow">Reader Questions</span>
+          <h2>Frequently Asked Questions</h2>
+          <p class="section-sub">
+            Everything you need to know about accessing and reading your books in Redoo.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          <article class="faq-card">
+            <h3>How do books appear in my library?</h3>
+            <p>
+              Your educator, publisher, or administrator grants books directly to your authorized Gmail address.
+              Once granted, they appear automatically in your Redoo library shelf.
+            </p>
+          </article>
+
+          <article class="faq-card">
+            <h3>What if I upgrade or change my phone?</h3>
+            <p>
+              Because Redoo securely binds to your physical device, simply contact your administrator or support
+              to reset your device link whenever you switch to a new phone.
+            </p>
+          </article>
+
+          <article class="faq-card">
+            <h3>Can I read my books offline?</h3>
+            <p>
+              Yes! Once you open your assigned books during your active session, you can read smoothly without
+              worrying about spotty internet connectivity.
+            </p>
+          </article>
+
+          <article class="faq-card">
+            <h3>Which Android versions are supported?</h3>
+            <p>
+              Redoo runs seamlessly on Android 7.0 (Nougat) and all newer versions, supporting smartphones and
+              Android tablets alike.
+            </p>
+          </article>
         </div>
       </section>
     </main>
 
     <footer class="container">
-      <span>&copy; <span id="year">2026</span> FolioVault. All rights reserved.</span>
-      <span id="support-note">Support: contact your publisher administrator</span>
+      <div class="footer-brand">
+        <span class="brand-mark" style="width: 32px; height: 32px; font-size: 16px;">R</span>
+        <span>Redoo</span>
+      </div>
+      <div>
+        <span>&copy; <span id="year">2026</span> Redoo. All rights reserved.</span>
+      </div>
+      <div class="footer-support" id="support-note">
+        Support: <a href="mailto:muhamad517uet@gmail.com">Contact Administrator</a>
+      </div>
     </footer>
 
     <script src="./config.js"></script>
     <script>
       (function () {
-        const cfg = window.FOLIOVAULT_CONFIG || {};
+        const cfg = window.REDOO_CONFIG || window.FOLIOVAULT_CONFIG || {};
         const btn = document.getElementById("download-apk-btn");
         const badge = document.getElementById("version-badge");
         const meta = document.getElementById("release-meta");
@@ -158,18 +378,16 @@
 
         if (year) year.textContent = String(new Date().getFullYear());
         if (badge && cfg.APP_VERSION) {
-          badge.textContent = "v" + cfg.APP_VERSION + " · Android APK";
+          badge.textContent = "v" + cfg.APP_VERSION + " · Android App";
         }
         if (meta && cfg.MIN_ANDROID) {
-          meta.textContent =
-            cfg.MIN_ANDROID +
-            (cfg.RELEASE_DATE ? " · Released " + cfg.RELEASE_DATE : "") +
-            " · Signed Release APK";
+          meta.textContent = cfg.MIN_ANDROID + " · Official Release";
         }
         if (support && cfg.SUPPORT_EMAIL) {
-          support.textContent = "Administrator support: " + cfg.SUPPORT_EMAIL;
+          const firstEmail = cfg.SUPPORT_EMAIL.split(",")[0].trim();
+          support.innerHTML = 'Support: <a href="mailto:' + encodeURIComponent(firstEmail) + '">' + firstEmail + '</a>';
         }
-        // Only allow https:// APK download URLs
+        // Only allow valid https:// download URLs
         if (btn && typeof cfg.APK_URL === "string" && cfg.APK_URL.startsWith("https://")) {
           btn.setAttribute("href", cfg.APK_URL);
         }

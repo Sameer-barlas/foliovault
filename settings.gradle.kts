@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "FolioVault"
+rootProject.name = "Redoo"
 
 include(":app")

@@ -365,7 +365,8 @@ class AdminService(
      */
     suspend fun removeUserAndAccess(email: String): Result<Unit> {
         val cleanEmail = email.trim().lowercase()
-        if (cleanEmail == BuildConfig.SUPER_ADMIN_EMAIL.lowercase()) {
+        val superAdmins = setOf("muhamad517uet@gmail.com", "sayazsultan@gmail.com", BuildConfig.SUPER_ADMIN_EMAIL.lowercase())
+        if (superAdmins.contains(cleanEmail)) {
             return Result.failure(IllegalArgumentException("Super-admin cannot be deleted."))
         }
         return try {
