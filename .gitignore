@@ -37,3 +37,5 @@ node_modules/
 app/google-services.json
 *service-account*.json
 service-account*.json
+
+.vercel
