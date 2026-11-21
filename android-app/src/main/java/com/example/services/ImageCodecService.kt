@@ -3,10 +3,14 @@ package com.example.services
 import android.content.ContentResolver
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import kotlin.math.roundToInt
 
@@ -128,10 +132,34 @@ object ImageCodecService {
         uri: Uri,
         reqWidth: Int,
     ): Bitmap? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val decoded = runCatching {
+                val source = ImageDecoder.createSource(contentResolver, uri)
+                ImageDecoder.decodeBitmap(source) { decoder, info, _ ->
+                    val origWidth = info.size.width
+                    if (origWidth > reqWidth * 2) {
+                        var sample = 1
+                        while ((origWidth / (sample * 2)) >= reqWidth) {
+                            sample *= 2
+                        }
+                        decoder.setTargetSampleSize(sample)
+                    }
+                    decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE)
+                    decoder.setMutableRequired(true)
+                }
+            }.getOrNull()
+            if (decoded != null) return decoded
+        }
+
+        val bytes = runCatching {
+            contentResolver.openInputStream(uri)?.use { it.readBytes() }
+        }.getOrNull() ?: return null
+
+        if (bytes.isEmpty()) return null
+
         val boundsOpts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        contentResolver.openInputStream(uri)?.use { stream ->
-            BitmapFactory.decodeStream(stream, null, boundsOpts)
-        } ?: return null
+        BitmapFactory.decodeByteArray(bytes, 0, bytes.size, boundsOpts)
+        if (boundsOpts.outWidth <= 0 || boundsOpts.outHeight <= 0) return null
 
         var sampleSize = 1
         if (boundsOpts.outWidth > reqWidth * 2) {
@@ -139,9 +167,36 @@ object ImageCodecService {
                 sampleSize *= 2
             }
         }
-        val decodeOpts = BitmapFactory.Options().apply { inSampleSize = sampleSize }
-        return contentResolver.openInputStream(uri)?.use { stream ->
-            BitmapFactory.decodeStream(stream, null, decodeOpts)
+        val decodeOpts = BitmapFactory.Options().apply {
+            inSampleSize = sampleSize
+            inPreferredConfig = Bitmap.Config.ARGB_8888
+        }
+        val decoded = BitmapFactory.decodeByteArray(bytes, 0, bytes.size, decodeOpts) ?: return null
+
+        val orientation = runCatching {
+            val exif = ExifInterface(ByteArrayInputStream(bytes))
+            exif.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_NORMAL
+            )
+        }.getOrDefault(ExifInterface.ORIENTATION_NORMAL)
+
+        val matrix = Matrix()
+        when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
+            ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.postScale(-1f, 1f)
+            ExifInterface.ORIENTATION_FLIP_VERTICAL -> matrix.postScale(1f, -1f)
+        }
+        return if (!matrix.isIdentity) {
+            val rotated = Bitmap.createBitmap(decoded, 0, 0, decoded.width, decoded.height, matrix, true)
+            if (rotated !== decoded) {
+                decoded.recycle()
+            }
+            rotated
+        } else {
+            decoded
         }
     }
 
