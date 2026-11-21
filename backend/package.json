@@ -1,0 +1,21 @@
+{
+  "name": "foliovault-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FolioVault Express MVC backend for single-device binding and rate-limited admin resets (Firebase Spark Edition).",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.0.2",
+    "google-auth-library": "^9.15.1",
+    "helmet": "^8.0.0"
+  }
+}

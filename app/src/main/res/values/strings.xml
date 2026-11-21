@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">FolioVault</string>
+
+    <!-- Auth & Welcome -->
+    <string name="welcome_tagline">Private editorial editions, bound to one device.</string>
+    <string name="welcome_subtitle">Sign in with your authorized Google account to unlock your assigned library.</string>
+    <string name="action_continue_with_google">Continue with Google</string>
+    <string name="action_sign_out">Sign Out</string>
+    <string name="action_try_again">Try Again</string>
+    <string name="action_switch_account">Use Another Account</string>
+
+    <!-- Gate Screens -->
+    <string name="not_authorized_title">Access Not Granted</string>
+    <string name="not_authorized_body">This Google account is not on the authorized reader list. Contact your administrator to request access.</string>
+    <string name="device_locked_title">Device Locked</string>
+    <string name="device_locked_body">Your account is already bound to another physical device. Contact your administrator to request a device reset.</string>
+    <string name="device_locked_linked_prefix">Linked to %1$s</string>
+    <string name="config_missing_banner">Backend or Firebase configuration is not set yet. Follow README.md to set API_BASE_URL, GOOGLE_WEB_CLIENT_ID, and google-services.json.</string>
+
+    <!-- Reader -->
+    <string name="library_title">Your Library</string>
+    <string name="library_search_placeholder">Search books or authors</string>
+    <string name="library_empty_title">No Books Assigned Yet</string>
+    <string name="library_empty_body">Books granted to your account will appear here. Pull down to refresh.</string>
+    <string name="reader_empty_pages">This book has no pages yet.</string>
+    <string name="reader_page_counter">%1$02d / %2$02d</string>
+    <string name="reader_back_cd">Back to library</string>
+    <string name="reader_reset_zoom_cd">Reset zoom</string>
+
+    <!-- Admin -->
+    <string name="admin_hub_title">FolioVault Admin</string>
+    <string name="admin_tab_books">Books</string>
+    <string name="admin_tab_users">Users</string>
+    <string name="admin_tab_audit">Audit</string>
+    <string name="admin_reader_preview">Reader Preview</string>
+    <string name="admin_exit_preview">Exit Preview</string>
+    <string name="admin_quota_title">Spark Storage Budget</string>
+    <string name="admin_quota_warning">Approaching 1 GiB Spark free tier limit. Plan migration to Blaze or prune unused pages.</string>
+    <string name="admin_add_book">New Book</string>
+    <string name="admin_add_user">Add Reader</string>
+    <string name="admin_seed_books">Load Debug Seed (3 Books)</string>
+    <string name="admin_reset_device">Reset Device</string>
+</resources>

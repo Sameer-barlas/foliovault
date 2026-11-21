@@ -1,0 +1,26 @@
+package com.example.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+// Warm Parchment Editorial Palette (Locked Specification Section 3)
+val ParchmentCanvas = Color(0xFFFAF6EE)
+val ParchmentCard = Color(0xFFF3ECE0)
+val ParchmentCardElevated = Color(0xFFEFE7D8)
+val EspressoInk = Color(0xFF1C1917)
+val OxbloodPrimary = Color(0xFF7C2D2D)
+val OxbloodOnPrimary = Color(0xFFFFFBF5)
+val OxbloodContainer = Color(0xFFF2DFDB)
+val OxbloodOnContainer = Color(0xFF4A1515)
+val BrassSecondary = Color(0xFF8B6B3E)
+val BrassOnSecondary = Color(0xFFFFFBF5)
+val BrassContainer = Color(0xFFEEE4D3)
+val BrassOnContainer = Color(0xFF3E2D14)
+val MutedText = Color(0xFF5C544B)
+val ParchmentDivider = Color(0xFFDDD4C4)
+val ForestSuccess = Color(0xFF2E5E4E)
+val ForestSuccessContainer = Color(0xFFDCEAE4)
+val CrimsonAlert = Color(0xFFA62626)
+val CrimsonAlertContainer = Color(0xFFF8DFDF)
+val ReaderSurroundDark = Color(0xFF141210)
+val ReaderSurfaceDark = Color(0xFF1F1C19)
+val ReaderInkLight = Color(0xFFF3ECE0)

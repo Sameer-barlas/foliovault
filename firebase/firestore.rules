@@ -1,0 +1,225 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function superAdminEmail() {
+      return 'muhamad517uet@gmail.com';
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userEmail() {
+      return request.auth.token.userEmail;
+    }
+
+    function hasValidClaims() {
+      return isSignedIn()
+        && request.auth.token.userEmail is string
+        && request.auth.token.userEmail.size() > 0
+        && request.auth.token.deviceId is string
+        && request.auth.token.deviceId.size() > 0;
+    }
+
+    function callerUserPath() {
+      return /databases/$(database)/documents/authorized_users/$(userEmail());
+    }
+
+    function hasMatchingDevice() {
+      return hasValidClaims()
+        && exists(callerUserPath())
+        && get(callerUserPath()).data.boundDeviceId is string
+        && get(callerUserPath()).data.boundDeviceId == request.auth.token.deviceId;
+    }
+
+    function isAdmin() {
+      return hasMatchingDevice()
+        && get(callerUserPath()).data.role == 'admin';
+    }
+
+    function hasGrant(bookId) {
+      return exists(/databases/$(database)/documents/access/$(userEmail() + '__' + bookId));
+    }
+
+    function isValidTimestamp(ts) {
+      return ts is timestamp && ts <= request.time;
+    }
+
+    function isValidBook(data) {
+      return data.keys().hasOnly([
+          'title',
+          'author',
+          'description',
+          'category',
+          'coverBytes',
+          'pageCount',
+          'createdBy',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.title is string
+        && data.title.size() > 0
+        && data.title.size() <= 200
+        && data.author is string
+        && data.author.size() <= 150
+        && data.description is string
+        && data.description.size() <= 2000
+        && data.category is string
+        && data.category.size() <= 80
+        && (!('coverBytes' in data) || data.coverBytes == null || (data.coverBytes is bytes && data.coverBytes.size() <= 60 * 1024))
+        && data.pageCount is int
+        && data.pageCount >= 0
+        && data.createdBy is string
+        && data.createdBy.size() > 0
+        && isValidTimestamp(data.createdAt)
+        && isValidTimestamp(data.updatedAt);
+    }
+
+    function isValidPage(data) {
+      return data.keys().hasOnly([
+          'orderIndex',
+          'imageBytes',
+          'width',
+          'height',
+          'caption',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.orderIndex is number
+        && data.imageBytes is bytes
+        && data.imageBytes.size() > 0
+        && data.imageBytes.size() <= 300 * 1024
+        && data.width is int
+        && data.width > 0
+        && data.width <= 4096
+        && data.height is int
+        && data.height > 0
+        && data.height <= 8192
+        && data.caption is string
+        && data.caption.size() <= 500
+        && isValidTimestamp(data.createdAt)
+        && isValidTimestamp(data.updatedAt);
+    }
+
+    // authorized_users/{email} (doc ID = lowercase Gmail)
+    match /authorized_users/{email} {
+      // Own doc get has no device check so the live revocation listener observes reset/deletion immediately.
+      allow get: if (isSignedIn() && request.auth.token.userEmail is string && email == userEmail()) || isAdmin();
+      allow list: if isAdmin();
+
+      // Admin can create reader accounts only, with unbound device fields.
+      allow create: if isAdmin()
+        && email == email.lower()
+        && request.resource.data.keys().hasOnly([
+            'email',
+            'displayName',
+            'role',
+            'boundDeviceId',
+            'boundDeviceLabel',
+            'boundUid',
+            'boundAt',
+            'sessionVersion',
+            'createdAt',
+            'updatedAt'
+          ])
+        && request.resource.data.email == email
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 120
+        && request.resource.data.role == 'reader'
+        && request.resource.data.boundDeviceId == null
+        && request.resource.data.boundDeviceLabel == null
+        && request.resource.data.boundUid == null
+        && request.resource.data.boundAt == null
+        && request.resource.data.sessionVersion is int
+        && request.resource.data.sessionVersion == 1
+        && isValidTimestamp(request.resource.data.createdAt)
+        && isValidTimestamp(request.resource.data.updatedAt);
+
+      // Admin can only update displayName and updatedAt; bind/reset/role fields are server-only.
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 120
+        && isValidTimestamp(request.resource.data.updatedAt);
+
+      // Super-admin document cannot be deleted by any client.
+      allow delete: if isAdmin() && email != superAdminEmail();
+    }
+
+    // access/{email__bookId}
+    match /access/{accessId} {
+      allow get, list: if isAdmin()
+        || (hasMatchingDevice() && resource.data.email == userEmail());
+
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasOnly(['email', 'bookId', 'grantedBy', 'grantedAt'])
+        && request.resource.data.email is string
+        && request.resource.data.email.size() > 3
+        && request.resource.data.email == request.resource.data.email.lower()
+        && request.resource.data.bookId is string
+        && request.resource.data.bookId.size() > 0
+        && accessId == request.resource.data.email + '__' + request.resource.data.bookId
+        && request.resource.data.grantedBy == userEmail()
+        && isValidTimestamp(request.resource.data.grantedAt)
+        && exists(/databases/$(database)/documents/books/$(request.resource.data.bookId));
+
+      allow delete: if isAdmin();
+    }
+
+    // books/{bookId} — zero subscriber emails stored on book documents
+    match /books/{bookId} {
+      allow get: if isAdmin() || (hasMatchingDevice() && hasGrant(bookId));
+      allow list: if isAdmin();
+
+      allow create: if isAdmin() && isValidBook(request.resource.data);
+      allow update: if isAdmin()
+        && isValidBook(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if isAdmin();
+
+      // books/{bookId}/pages/{pageId}
+      match /pages/{pageId} {
+        allow get, list: if isAdmin() || (hasMatchingDevice() && hasGrant(bookId));
+
+        allow create: if isAdmin()
+          && exists(/databases/$(database)/documents/books/$(bookId))
+          && isValidPage(request.resource.data);
+
+        allow update: if isAdmin()
+          && exists(/databases/$(database)/documents/books/$(bookId))
+          && isValidPage(request.resource.data)
+          && request.resource.data.createdAt == resource.data.createdAt;
+
+        allow delete: if isAdmin();
+      }
+    }
+
+    // reset_audit_logs/{logId} — admin read-only, backend Admin SDK write-only
+    match /reset_audit_logs/{logId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // rate_limits/{key} — backend Admin SDK only
+    match /rate_limits/{key} {
+      allow read, write: if false;
+    }
+
+    // app_stats/storage — admin read/write for approximate Spark quota tracking
+    match /app_stats/storage {
+      allow read: if isAdmin();
+      allow write: if isAdmin()
+        && request.resource.data.keys().hasOnly(['totalImageBytes', 'updatedAt'])
+        && request.resource.data.totalImageBytes is int
+        && request.resource.data.totalImageBytes >= 0
+        && isValidTimestamp(request.resource.data.updatedAt);
+    }
+
+    // Default deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

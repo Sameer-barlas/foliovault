@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FolioVault — Private Single-Device Android Book Reader</title>
+    <meta
+      name="description"
+      content="Distribute private visual books and study materials locked to one physical Android phone per authorized Gmail."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <a class="brand" href="#">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span class="brand-name">FolioVault</span>
+        </a>
+        <span class="version-pill" id="version-badge">v1.0.0 · Android APK</span>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero" style="border-top: none">
+        <div>
+          <p class="eyebrow">Private Digital Editions · Single-Device Lock</p>
+          <h1>Read private editions without file leaks.</h1>
+          <p class="lead">
+            FolioVault delivers image-only books exclusively to authorized Gmail readers, locked
+            server-side to one physical Android phone with zero disk caching and zero public
+            download links.
+          </p>
+          <div class="cta-row">
+            <a
+              class="btn-primary"
+              id="download-apk-btn"
+              href="#install-guide"
+              rel="noopener noreferrer"
+            >
+              Download APK for Android
+            </a>
+            <a class="btn-secondary" href="#install-guide">Install Instructions</a>
+          </div>
+          <p class="meta-note" id="release-meta">Android 7.0 (API 24)+ · Signed Release APK</p>
+        </div>
+
+        <aside class="preview-card" aria-label="Protected reader preview">
+          <div class="preview-page">
+            <div class="preview-watermark">reader@example.com · FOLIOVAULT</div>
+            <p class="preview-folio">FOLIO 04 · PROTECTED EDITION</p>
+            <p class="preview-title">Atlas of Classical Mechanics</p>
+            <div class="preview-lines">
+              Memory-only WebP plates streamed in 12-page batches with pinch-to-zoom, screen
+              capture blocking, and live revocation guard.
+            </div>
+          </div>
+          <span class="preview-pill">04 / 18 · FLAG_SECURE</span>
+        </aside>
+      </section>
+
+      <section id="security">
+        <h2>Four Security Pillars</h2>
+        <p class="section-sub">
+          Built for authors, coaching institutes, and publishers distributing paid study books.
+        </p>
+        <div class="pillars">
+          <article class="pillar-card">
+            <span class="pillar-tag">01 · SERVER-ENFORCED</span>
+            <h3>One Phone per Gmail</h3>
+            <p>
+              Your first Google sign-in binds your hardware device on the server and mints a
+              device-scoped session token verified on every Firestore read.
+            </p>
+          </article>
+          <article class="pillar-card">
+            <span class="pillar-tag">02 · ZERO DISK CACHE</span>
+            <h3>Memory-Only Rendering</h3>
+            <p>
+              Pages live strictly inside a temporary RAM cache and are wiped immediately when you
+              exit a book, sign out, or have access revoked.
+            </p>
+          </article>
+          <article class="pillar-card">
+            <span class="pillar-tag">03 · SCREEN DEFENSE</span>
+            <h3>Capture Block &amp; Watermark</h3>
+            <p>
+              Android <code>FLAG_SECURE</code> blocks screenshots and screen recordings while a
+              translucent personal Gmail watermark discourages external camera photos.
+            </p>
+          </article>
+          <article class="pillar-card">
+            <span class="pillar-tag">04 · ZERO EMAIL LEAKAGE</span>
+            <h3>Private Grants &amp; Instant Revoke</h3>
+            <p>
+              Readers see only books explicitly assigned to their account. Admin device resets are
+              rate-limited, audited, and take effect immediately.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="install-guide">
+        <h2>How to Install the APK</h2>
+        <p class="section-sub">
+          Because FolioVault is distributed directly rather than through Google Play, Android asks
+          you to confirm browser installation once.
+        </p>
+        <div class="steps">
+          <article class="step-card">
+            <h3>Download the signed APK</h3>
+            <p>Tap <strong>Download APK for Android</strong> above to fetch the latest release from GitHub Releases.</p>
+          </article>
+          <article class="step-card">
+            <h3>Allow installs from this source</h3>
+            <p>
+              Open the downloaded file. When Android prompts, tap <strong>Settings</strong> and
+              enable <strong>Allow from this source</strong> for your browser or Files app.
+            </p>
+          </article>
+          <article class="step-card">
+            <h3>Sign in with your authorized Gmail</h3>
+            <p>
+              Launch FolioVault and tap <strong>Continue with Google</strong>. Your phone binds
+              automatically on first sign-in.
+            </p>
+          </article>
+        </div>
+        <div class="notice">
+          <strong>Play Protect notice:</strong> Direct APK installs may display a standard Google
+          Play Protect scan prompt. Tap <em>More details &rarr; Install anyway</em> only when
+          downloading from this official page. Need a device reset after upgrading or factory
+          resetting your phone? Contact your administrator.
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <span>&copy; <span id="year">2026</span> FolioVault. All rights reserved.</span>
+      <span id="support-note">Support: contact your publisher administrator</span>
+    </footer>
+
+    <script src="./config.js"></script>
+    <script>
+      (function () {
+        const cfg = window.FOLIOVAULT_CONFIG || {};
+        const btn = document.getElementById("download-apk-btn");
+        const badge = document.getElementById("version-badge");
+        const meta = document.getElementById("release-meta");
+        const support = document.getElementById("support-note");
+        const year = document.getElementById("year");
+
+        if (year) year.textContent = String(new Date().getFullYear());
+        if (badge && cfg.APP_VERSION) {
+          badge.textContent = "v" + cfg.APP_VERSION + " · Android APK";
+        }
+        if (meta && cfg.MIN_ANDROID) {
+          meta.textContent =
+            cfg.MIN_ANDROID +
+            (cfg.RELEASE_DATE ? " · Released " + cfg.RELEASE_DATE : "") +
+            " · Signed Release APK";
+        }
+        if (support && cfg.SUPPORT_EMAIL) {
+          support.textContent = "Administrator support: " + cfg.SUPPORT_EMAIL;
+        }
+        // Only allow https:// APK download URLs
+        if (btn && typeof cfg.APK_URL === "string" && cfg.APK_URL.startsWith("https://")) {
+          btn.setAttribute("href", cfg.APK_URL);
+        }
+      })();
+    </script>
+  </body>
+</html>
