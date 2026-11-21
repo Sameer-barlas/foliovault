@@ -57,17 +57,12 @@ jobs:
           ls -lh FolioVault-release.apk
 
       - name: Upload APK to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: FolioVault v1.0.0
+          body: "FolioVault Secure Single-Device Book Reader signed release APK."
+          files: FolioVault-release.apk
+          make_latest: true
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TAG="${GITHUB_REF_NAME:-v1.0.0}"
-          if [[ "$TAG" == "master" || "$TAG" == "main" || -z "$TAG" ]]; then
-            TAG="v1.0.0"
-          fi
-          # Delete existing tag/release if re-running
-          gh release delete "$TAG" -y || true
-          git push --delete origin "$TAG" || true
-          gh release create "$TAG" FolioVault-release.apk \
-            --title "FolioVault $TAG" \
-            --notes "FolioVault Secure Single-Device Book Reader signed release APK." \
-            --latest
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
