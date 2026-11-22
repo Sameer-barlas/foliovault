@@ -699,6 +699,159 @@ footer {
   text-decoration: underline;
 }
 
+/* Installation Troubleshooting Section */
+.troubleshoot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.troubleshoot-card {
+  background: var(--card);
+  border: 1px solid var(--divider);
+  border-radius: 16px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.troubleshoot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--secondary);
+}
+
+.troubleshoot-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.error-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(124, 45, 45, 0.12);
+  color: var(--primary);
+  border: 1px solid rgba(124, 45, 45, 0.25);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.tip-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(38, 89, 70, 0.12);
+  color: var(--success);
+  border: 1px solid rgba(38, 89, 70, 0.25);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.troubleshoot-card h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.troubleshoot-cause {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  background: rgba(237, 227, 210, 0.6);
+  padding: 10px 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--secondary);
+}
+
+.troubleshoot-steps h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-secondary);
+  margin-bottom: 6px;
+}
+
+.troubleshoot-steps ol {
+  padding-left: 20px;
+  font-size: 13.5px;
+  color: var(--ink-secondary);
+  line-height: 1.6;
+}
+
+.troubleshoot-steps ol li {
+  margin-bottom: 4px;
+}
+
+.troubleshoot-steps ol li strong {
+  color: var(--ink);
+}
+
+.troubleshoot-callout {
+  margin-top: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--card-elevated);
+  border: 1px solid var(--secondary-light);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+.callout-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--secondary);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.callout-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #FFFBF5;
+}
+
+.callout-body h4 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 17px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.callout-body p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.callout-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.callout-link:hover {
+  text-decoration: underline;
+}
+
 /* Responsive Media Queries */
 @media (max-width: 960px) {
   .hero {
@@ -724,6 +877,13 @@ footer {
   }
   .steps-grid {
     grid-template-columns: 1fr;
+  }
+  .troubleshoot-grid {
+    grid-template-columns: 1fr;
+  }
+  .troubleshoot-callout {
+    flex-direction: column;
+    gap: 12px;
   }
   .faq-grid {
     grid-template-columns: 1fr;

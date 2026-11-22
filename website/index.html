@@ -28,6 +28,7 @@
           <li><a class="nav-link" href="#features">Features</a></li>
           <li><a class="nav-link" href="#experience">Reading Experience</a></li>
           <li><a class="nav-link" href="#how-it-works">How It Works</a></li>
+          <li><a class="nav-link" href="#installation-help">Install Help</a></li>
           <li><a class="nav-link" href="#faq">FAQ</a></li>
         </ul>
 
@@ -315,6 +316,115 @@
         </div>
       </section>
 
+      <!-- Installation Troubleshooting Section -->
+      <section id="installation-help">
+        <div class="section-head">
+          <span class="eyebrow">Customer Support &amp; Guidance</span>
+          <h2>Installation Troubleshooting Guide</h2>
+          <p class="section-sub">
+            Because Redoo is distributed as a direct verified APK, some modern Android devices (especially Android 13 &amp; 14)
+            may show security prompts. If you encounter any installation warning, follow the quick solutions below.
+          </p>
+        </div>
+
+        <div class="troubleshoot-grid">
+          <!-- Issue 1 -->
+          <article class="troubleshoot-card">
+            <div class="troubleshoot-header">
+              <span class="error-badge">Most Common Error</span>
+              <h3>&ldquo;App not installed as package appears to be invalid&rdquo;</h3>
+            </div>
+            <p class="troubleshoot-cause">
+              <strong>Why this happens:</strong> An earlier version or test build of Redoo (or FolioVault) is already present on your phone, causing a signature mismatch.
+            </p>
+            <div class="troubleshoot-steps">
+              <h4>How to fix in 30 seconds:</h4>
+              <ol>
+                <li>Go to your phone&rsquo;s <strong>Settings &rarr; Apps</strong> (Manage Apps).</li>
+                <li>Search for <strong>Redoo</strong> or <strong>FolioVault</strong> and tap <strong>Uninstall</strong>.</li>
+                <li><em>(Samsung / Xiaomi users):</em> If you use <strong>Secure Folder</strong>, <strong>Dual Apps</strong>, or <strong>Second Space</strong>, make sure to delete any leftover copy there as well.</li>
+                <li>Tap the downloaded APK again to install cleanly.</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Issue 2 -->
+          <article class="troubleshoot-card">
+            <div class="troubleshoot-header">
+              <span class="error-badge">Security Filter</span>
+              <h3>&ldquo;Can&rsquo;t install app on your device&rdquo; / Play Protect Block</h3>
+            </div>
+            <p class="troubleshoot-cause">
+              <strong>Why this happens:</strong> Google Play Protect strictly scans unknown developer packages and may prevent sideloaded apps from opening.
+            </p>
+            <div class="troubleshoot-steps">
+              <h4>How to fix in 30 seconds:</h4>
+              <ol>
+                <li>Open the <strong>Google Play Store</strong> app.</li>
+                <li>Tap your <strong>Profile Icon</strong> (top right) &rarr; tap <strong>Play Protect</strong>.</li>
+                <li>Tap the <strong>Settings (gear icon)</strong> in the top-right corner.</li>
+                <li>Temporarily toggle <strong>&ldquo;Scan apps with Play Protect&rdquo;</strong> to <strong>OFF</strong>.</li>
+                <li>Open and install the APK. <em>(You can re-enable Play Protect immediately after installation).</em></li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Issue 3 -->
+          <article class="troubleshoot-card">
+            <div class="troubleshoot-header">
+              <span class="tip-badge">Recommended Practice</span>
+              <h3>Open with &ldquo;Files&rdquo; App (Not Browser or WhatsApp)</h3>
+            </div>
+            <p class="troubleshoot-cause">
+              <strong>Why this happens:</strong> Tapping an APK directly inside Chrome or WhatsApp can trigger package parsing errors due to sandbox restrictions.
+            </p>
+            <div class="troubleshoot-steps">
+              <h4>How to fix:</h4>
+              <ol>
+                <li>Open your phone&rsquo;s built-in <strong>Files</strong>, <strong>My Files</strong>, or <strong>Files by Google</strong> app.</li>
+                <li>Navigate to the <strong>Downloads</strong> folder.</li>
+                <li>Tap <strong>Redoo-release.apk</strong> directly from your file manager.</li>
+                <li>If prompted with <em>&ldquo;Install unknown apps&rdquo;</em>, toggle <strong>Allow from this source</strong> to ON.</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Issue 4 -->
+          <article class="troubleshoot-card">
+            <div class="troubleshoot-header">
+              <span class="tip-badge">File Integrity</span>
+              <h3>Verify Complete Download (File Size ~18 MB)</h3>
+            </div>
+            <p class="troubleshoot-cause">
+              <strong>Why this happens:</strong> If your network connection paused or was interrupted, your browser might have saved a damaged, partial file.
+            </p>
+            <div class="troubleshoot-steps">
+              <h4>How to fix:</h4>
+              <ol>
+                <li>Check the downloaded file size in your file manager — it should be approximately <strong>18 MB</strong>.</li>
+                <li>If it is under 5 MB or 0 KB, delete the broken file.</li>
+                <li>Re-download the latest official release APK using the link below.</li>
+              </ol>
+            </div>
+          </article>
+        </div>
+
+        <!-- Direct Customer Support Box -->
+        <div class="troubleshoot-callout">
+          <div class="callout-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          </div>
+          <div class="callout-body">
+            <h4>Still need assistance installing on your specific phone?</h4>
+            <p>
+              We are committed to making sure every reader has seamless access. If you continue to see any installation error,
+              simply contact our team with your device model:
+              <a href="mailto:sayazsultan@gmail.com,muhamad517uet@gmail.com" class="callout-link" id="troubleshoot-support-email">sayazsultan@gmail.com / muhamad517uet@gmail.com</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       <!-- FAQ Section -->
       <section id="faq">
         <div class="section-head">
@@ -394,6 +504,12 @@
         if (support && cfg.SUPPORT_EMAIL) {
           const firstEmail = cfg.SUPPORT_EMAIL.split(",")[0].trim();
           support.innerHTML = 'Support: <a href="mailto:' + encodeURIComponent(firstEmail) + '">' + firstEmail + '</a>';
+        }
+        const tsSupport = document.getElementById("troubleshoot-support-email");
+        if (tsSupport && cfg.SUPPORT_EMAIL) {
+          const firstEmail = cfg.SUPPORT_EMAIL.split(",")[0].trim();
+          tsSupport.setAttribute("href", "mailto:" + encodeURIComponent(firstEmail));
+          tsSupport.textContent = cfg.SUPPORT_EMAIL.replace(/,/g, " / ");
         }
         // Only allow valid https:// download URLs
         const dlButtons = [
